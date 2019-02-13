@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>448</width>
+    <height>775</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>448</width>
+    <height>775</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>448</width>
+    <height>775</height>
+   </size>
+  </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
+  <property name="windowTitle">
+   <string>SanobaClock</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="ClockWidget" name="clock" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>448</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <widget class="QLabel" name="timeLabel">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>10</y>
+       <width>261</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>64</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>time</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="dateLabel">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>date</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="weekLabel">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>week</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <zorder>dateLabel</zorder>
+    <zorder>timeLabel</zorder>
+    <zorder>weekLabel</zorder>
+   </widget>
+   <widget class="BackgroundImageWidget" name="backgroundLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>448</width>
+      <height>730</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>background</string>
+    </property>
+   </widget>
+   <widget class="CharacterImageWidget" name="characterLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>448</width>
+      <height>730</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>character</string>
+    </property>
+   </widget>
+   <zorder>backgroundLabel</zorder>
+   <zorder>characterLabel</zorder>
+   <zorder>clock</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>448</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="ConfigWidget" name="menuconfig">
+    <property name="title">
+     <string>config</string>
+    </property>
+   </widget>
+   <addaction name="menuconfig"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ClockWidget</class>
+   <extends>QWidget</extends>
+   <header>clockwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BackgroundImageWidget</class>
+   <extends>QLabel</extends>
+   <header>backgroundimagewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CharacterImageWidget</class>
+   <extends>QLabel</extends>
+   <header>characterimagewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ConfigWidget</class>
+   <extends>QMenu</extends>
+   <header>configwidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
