@@ -40,6 +40,11 @@ void ClockWidget::rendor()
     dateLabel->setText(time.toString("M月dd日"));
     weekLabel->setText(time.toString("ddd"));
     timeLabel->setText(time.toString("HH:mm"));
+
+    QString str = time.toString("mmss");
+    if (str == "3000" || str == "0000") {
+        report();
+    }
 }
 
 void ClockWidget::report()

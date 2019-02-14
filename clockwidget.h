@@ -17,6 +17,7 @@ public:
     void bind(QLabel *dateLabel = nullptr,
               QLabel *weekLabel = nullptr,
               QLabel *timeLabel = nullptr);
+    void report();
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -33,8 +34,6 @@ private:
 
     QString prefix;
     QString character = "nen";
-
-    void report();
 
 public slots:
     void updatePrefix(QString path);

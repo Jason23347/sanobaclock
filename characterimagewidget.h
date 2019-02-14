@@ -24,6 +24,7 @@ private:
     QString type = "0";
 
     QMediaPlayer *player;
+    bool locked = false;
 
 public slots:
     void refresh(QMediaPlayer::State);

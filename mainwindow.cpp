@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // boot clock
     ui->clock->rendor();
+    ui->clock->report();
 
     qDebug() << "Appilcation boot ended.";
 }

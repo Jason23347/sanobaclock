@@ -19,6 +19,12 @@ CharacterImageWidget::~CharacterImageWidget()
 
 void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
 {
+    if (locked) {
+        qDebug() << "image locked.";
+        return;
+    }
+    locked = true;
+
     int x = mouse->pos().x();
     int y = mouse->pos().y();
 
@@ -27,19 +33,20 @@ void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
     qDebug() << "x: " << x << ", y: " << y;
 
 
-    if ((x > 266 && x < 308) &&
-            (y > 310 && y < 360))
+    if ((x > 270 && x < 326) &&
+            (y > 310 && y < 660))
     {
         qDebug() << "touched shoulder.";
 
         tmp = this->type;
-        updateImage(character, costume, "0");
+        updateImage(character, costume, "4");
         boot();
         updateImage(character, costume, tmp);
 
         player->setMedia(QMediaContent(
                              QUrl::fromLocalFile(prefix + "/" + character + "_touch_02.mp3")));
-        qDebug() << "start to play sound.";
+        player->play();
+        return;
     }
 
     if ((x > 130 && x < 310) && (y > 140 && y < 300))
@@ -68,17 +75,21 @@ void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
 
             player->setMedia(QMediaContent(
                                  QUrl::fromLocalFile(prefix + "/" + character + "_touch_04.mp3")));
+            player->play();
+            return;
         }
         if (y > 299 && y < 515) {
             qDebug() << "touched chest or belly!!!";
 
             tmp = this->type;
-            updateImage(character, costume, "4");
+            updateImage(character, costume, "3");
             boot();
             updateImage(character, costume, tmp);
 
             player->setMedia(QMediaContent(
                                  QUrl::fromLocalFile(prefix + "/" + character + "_touch_03.mp3")));
+            player->play();
+            return;
         } else if (y > 514) {
             qDebug() << "touched legs!!!";
 
@@ -88,7 +99,9 @@ void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
             updateImage(character, costume, tmp);
 
             player->setMedia(QMediaContent(
-                                 QUrl::fromLocalFile(prefix + "/" + character + "_touch_05.mp3")));
+                                 QUrl::fromLocalFile(prefix + "/" + character + "_touch_04.mp3")));
+            player->play();
+            return;
         }
     }
 }
@@ -116,7 +129,8 @@ void CharacterImageWidget::updateImage(QString name, QString costume, QString ty
 void CharacterImageWidget::refresh(QMediaPlayer::State state)
 {
     if (state == QMediaPlayer::StoppedState) {
-        qDebug() << "image refreshed.";
         boot();
+        locked = false;
+        qDebug() << "image refreshed.";
     }
 }
