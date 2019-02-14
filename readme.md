@@ -7,6 +7,7 @@ This is a simple application build with Qt5 as a clock, <s>and for watching your
 ### make
 
 ```bash
+qmake
 make
 ```
 
