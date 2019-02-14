@@ -55,19 +55,44 @@ void ClockWidget::report()
 
     playlist->addMedia(QMediaContent(
                            QUrl::fromLocalFile(
-                               prefix + "/" + character + "_app_" + locale.toString(time, "ap") + ".mp3")));
+                               prefix + "/" + character + "_app_" +
+                               locale.toString(time, "ap") + ".mp3")));
     playlist->addMedia(QMediaContent(
                            QUrl::fromLocalFile(
-                               prefix + "/" + character + "_app_" + "h_" + QString::number(locale.toString(time, "h").toInt()%12) + ".mp3")));
-    if (mm > 0) {
+                               prefix + "/mute.mp3")));
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/" + character + "_app_" + "h_" +
+                               QString::number(locale.toString(time, "h").toInt()%12) + ".mp3")));
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/mute.mp3")));
+    if (m == 0) {
+        if(mm > 0) {
+            playlist->addMedia(QMediaContent(
+                                   QUrl::fromLocalFile(
+                                       prefix + "/" + character + "_app_mm_m_" +
+                                       QString::number(mm) + ".mp3")));
+        }
         playlist->addMedia(QMediaContent(
                                QUrl::fromLocalFile(
-                                   prefix + "/" + character + "_app_mm_m_" + QString::number(mm) + ".mp3")));
+                                   prefix + "/mute.mp3")));
+    } else if (mm > 0) {
+        playlist->addMedia(QMediaContent(
+                               QUrl::fromLocalFile(
+                                   prefix + "/" + character + "_app_mm_" + QString::number(mm) + ".mp3")));
+        playlist->addMedia(QMediaContent(
+                               QUrl::fromLocalFile(
+                                   prefix + "/mute.mp3")));
     }
+
     if (m > 0) {
         playlist->addMedia(QMediaContent(
                                QUrl::fromLocalFile(
                                    prefix + "/" + character + "_app_" + "m_m_" + QString::number(m) + ".mp3")));
+        playlist->addMedia(QMediaContent(
+                               QUrl::fromLocalFile(
+                                   prefix + "/mute.mp3")));
     }
     playlist->addMedia(QMediaContent(
                            QUrl::fromLocalFile(
@@ -85,7 +110,7 @@ void ClockWidget::mousePressEvent(QMouseEvent *event)
 
 void ClockWidget::updatePrefix(QString path)
 {
-    this->prefix = QDir::currentPath() + "/" + path;
+    this->prefix = path;
 }
 
 void ClockWidget::updateCharacter(QString name)

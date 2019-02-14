@@ -4,6 +4,8 @@
 #include <QMenu>
 #include <QSettings>
 
+#include "characterform.h"
+
 class ConfigWidget : public QMenu
 {
     Q_OBJECT
@@ -14,8 +16,12 @@ public:
 
     void boot();
 
+protected:
+    void mousePressEvent(QMouseEvent *mouse);
+
 private:
     QSettings *settings;
+    CharacterForm *characterForm;
 
     QString path;
 

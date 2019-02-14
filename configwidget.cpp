@@ -1,10 +1,13 @@
 #include "configwidget.h"
 
 #include <QtDebug>
+#include <QCoreApplication>
 
 ConfigWidget::ConfigWidget(QWidget *parent) : QMenu(parent)
 {
-    settings = new QSettings("config.ini", QSettings::IniFormat);
+    qDebug() << "current path is: " << QCoreApplication::applicationDirPath();
+    settings = new QSettings(QCoreApplication::applicationDirPath() + "/config.ini", QSettings::IniFormat);
+    characterForm = new CharacterForm();
 
     path = settings->value("/asset/path").toString();
 
@@ -22,6 +25,12 @@ ConfigWidget::ConfigWidget(QWidget *parent) : QMenu(parent)
 ConfigWidget::~ConfigWidget()
 {
     delete settings;
+    delete characterForm;
+}
+
+void ConfigWidget::mousePressEvent(QMouseEvent *mouse)
+{
+    characterForm->show();
 }
 
 void ConfigWidget::boot()
