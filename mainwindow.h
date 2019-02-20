@@ -18,7 +18,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    ClockWidget *clock;
 };
 
 #endif // MAINWINDOW_H

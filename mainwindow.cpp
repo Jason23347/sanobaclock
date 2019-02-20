@@ -27,6 +27,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->menuconfig, &ConfigWidget::updateBackground,
             ui->backgroundLabel, &BackgroundImageWidget::updateImage);
 
+    // clock config binding
+    connect(ui->menuconfig, &ConfigWidget::updateFontColor,
+            ui->clock, &ClockWidget::updateFontColor);
+    connect(ui->menuconfig, &ConfigWidget::updateTimeGap,
+            ui->clock, &ClockWidget::updateTimeGap);
+
     // character config binding
     connect(ui->menuconfig, &ConfigWidget::updateCharacter,
             ui->characterLabel, &CharacterImageWidget::updateImage);

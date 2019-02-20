@@ -19,8 +19,14 @@ void ImageLoader::rendor()
         qDebug() << "Cannot open file" << filepath;
         return;
     }
-    this->setPixmap(QPixmap::fromImage(
-                        image->scaled(600, 900,
-                                      Qt::KeepAspectRatio, Qt::SmoothTransformation)));
-    this->setScaledContents(true);
+    if (image->width()*1.0/image->height() < 448.0 / 730) {
+        qDebug() << "width not enough";
+        this->setPixmap(QPixmap::fromImage(
+                            image->scaledToWidth(448, Qt::SmoothTransformation)));
+    } else {
+        qDebug() << "height not enough";
+        this->setPixmap(QPixmap::fromImage(
+                            image->scaledToHeight(730, Qt::SmoothTransformation)));
+    }
+    this->setAlignment(Qt::AlignCenter);
 }

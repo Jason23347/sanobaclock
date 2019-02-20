@@ -18,18 +18,19 @@ protected:
     void mousePressEvent(QMouseEvent *mouse);
 
 private:
-    QString prefix = "./asset";
-    QString character = "nen";
-    QString costume = "0";
-    QString type = "0";
+    QString prefix;
+    QString character;
+    QString costume;
+    QString pose;
+    QString type;
 
     QMediaPlayer *player;
     bool locked = false;
 
 public slots:
-    void refresh(QMediaPlayer::State);
+    void refresh(QMediaPlayer::State state);
     void updatePrefix(QString);
-    void updateImage(QString name, QString costume, QString type);
+    void updateImage(QString name, QString costume, QString pose, QString type);
 };
 
 #endif // CharacterImageWidget_H

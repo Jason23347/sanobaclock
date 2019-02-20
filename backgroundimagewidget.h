@@ -16,11 +16,12 @@ public:
     void boot();
 
 private:
-    QString number = "0";
-    QString prefix = "./asset";
+    QString number;
+    QString game;
+    QString prefix;
 
 public slots:
-    void updateImage(QString number);
+    void updateImage(QString game, QString number);
     void updatePrefix(QString path);
 };
 

@@ -41,16 +41,80 @@ void ClockWidget::rendor()
     weekLabel->setText(time.toString("ddd"));
     timeLabel->setText(time.toString("HH:mm"));
 
-    QString str = time.toString("mmss");
-    if (str == "3000" || str == "0000") {
+    int minute = time.toString("mm").toInt();
+    QString second = time.toString("ss");
+
+    if (minute % gap == 0 && second == "00")
         report();
-    }
 }
 
 void ClockWidget::report()
 {
+    if ( character == "miu" ||
+         character == "azu" ||
+         character == "rio" ||
+         character == "ele"
+         ) {
+        qDebug() << "report time v1";
+        reportV1();
+    } else if ( character == "nen" ||
+                character == "meg" ||
+                character == "tmg" ||
+                character == "tok" ||
+                character == "wak"
+                ) {
+        qDebug() << "report time v2";
+        reportV2();
+    } else {
+        qDebug() << "report time v3";
+        reportV3();
+    }
+}
+
+void ClockWidget::reportV1()
+{
     QDateTime time = QDateTime::currentDateTime();
     QLocale locale = QLocale::English;
+
+    int hour = locale.toString(time, "h").toInt() % 12;
+    if(hour == 0)
+        hour = 12;
+
+    playlist->clear();
+
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/" + character + "_clock_start.mp3")));
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/" + character + "_clock_" +
+                               locale.toString(time, "ap") + ".mp3")));
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/" + character + "_clock_h_" +
+                               QString::number(hour) + ".mp3")));
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/" + character + "_clock_mm_" + time.toString("mm") + ".mp3" )));
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/" + character + "_clock_end.mp3")));
+
+    playlist->setPlaybackMode(QMediaPlaylist::Sequential);
+
+    player->setPlaylist(playlist);
+    player->play();
+}
+
+void ClockWidget::reportV2()
+{
+
+    QDateTime time = QDateTime::currentDateTime();
+    QLocale locale = QLocale::English;
+
+    int hour = locale.toString(time, "h").toInt() % 12;
+    if(hour == 0)
+        hour = 12;
 
     int num = time.toString("mm").toInt();
     int m = num % 10;
@@ -60,15 +124,15 @@ void ClockWidget::report()
 
     playlist->addMedia(QMediaContent(
                            QUrl::fromLocalFile(
-                               prefix + "/" + character + "_app_" +
+                               prefix + "/" + character + "_clock_" +
                                locale.toString(time, "ap") + ".mp3")));
     playlist->addMedia(QMediaContent(
                            QUrl::fromLocalFile(
                                prefix + "/mute.mp3")));
     playlist->addMedia(QMediaContent(
                            QUrl::fromLocalFile(
-                               prefix + "/" + character + "_app_" + "h_" +
-                               QString::number(locale.toString(time, "h").toInt()%12) + ".mp3")));
+                               prefix + "/" + character + "_clock_" + "h_" +
+                               QString::number(hour) + ".mp3")));
     playlist->addMedia(QMediaContent(
                            QUrl::fromLocalFile(
                                prefix + "/mute.mp3")));
@@ -76,7 +140,7 @@ void ClockWidget::report()
         if(mm > 0) {
             playlist->addMedia(QMediaContent(
                                    QUrl::fromLocalFile(
-                                       prefix + "/" + character + "_app_mm_m_" +
+                                       prefix + "/" + character + "_clock_mm_m_" +
                                        QString::number(mm) + ".mp3")));
         }
         playlist->addMedia(QMediaContent(
@@ -85,7 +149,7 @@ void ClockWidget::report()
     } else if (mm > 0) {
         playlist->addMedia(QMediaContent(
                                QUrl::fromLocalFile(
-                                   prefix + "/" + character + "_app_mm_" + QString::number(mm) + ".mp3")));
+                                   prefix + "/" + character + "_clock_mm_" + QString::number(mm) + ".mp3")));
         playlist->addMedia(QMediaContent(
                                QUrl::fromLocalFile(
                                    prefix + "/mute.mp3")));
@@ -94,14 +158,65 @@ void ClockWidget::report()
     if (m > 0) {
         playlist->addMedia(QMediaContent(
                                QUrl::fromLocalFile(
-                                   prefix + "/" + character + "_app_" + "m_m_" + QString::number(m) + ".mp3")));
+                                   prefix + "/" + character + "_clock_" + "m_m_" + QString::number(m) + ".mp3")));
         playlist->addMedia(QMediaContent(
                                QUrl::fromLocalFile(
                                    prefix + "/mute.mp3")));
     }
     playlist->addMedia(QMediaContent(
                            QUrl::fromLocalFile(
-                               prefix + "/" + character + "_app_end.mp3")));
+                               prefix + "/" + character + "_clock_end.mp3")));
+    playlist->setPlaybackMode(QMediaPlaylist::Sequential);
+
+    player->setPlaylist(playlist);
+    player->play();
+}
+
+void ClockWidget::reportV3()
+{
+
+    QDateTime time = QDateTime::currentDateTime();
+    QLocale locale = QLocale::English;
+
+    int hour = locale.toString(time, "h").toInt() % 12;
+    if(hour == 0)
+        hour = 12;
+
+    int num = time.toString("mm").toInt();
+    int m = num % 10;
+    int mm = (num - m)/10;
+
+    playlist->clear();
+
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/" + character + "_watch_" +
+                               locale.toString(time, "ap") + ".ogg")));
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/" + character + "_watch_" + "h_" +
+                               QString::number(hour) + ".ogg")));
+    if (m == 0) {
+        if(mm > 0) {
+            playlist->addMedia(QMediaContent(
+                                   QUrl::fromLocalFile(
+                                       prefix + "/" + character + "_watch_mm_m_" +
+                                       QString::number(mm) + ".ogg")));
+        }
+    } else if (mm > 0) {
+        playlist->addMedia(QMediaContent(
+                               QUrl::fromLocalFile(
+                                   prefix + "/" + character + "_watch_mm_" + QString::number(mm) + ".ogg")));
+    }
+
+    if (m > 0) {
+        playlist->addMedia(QMediaContent(
+                               QUrl::fromLocalFile(
+                                   prefix + "/" + character + "_watch_" + "m_m_" + QString::number(m) + ".ogg")));
+    }
+    playlist->addMedia(QMediaContent(
+                           QUrl::fromLocalFile(
+                               prefix + "/" + character + "_watch_end.ogg")));
     playlist->setPlaybackMode(QMediaPlaylist::Sequential);
 
     player->setPlaylist(playlist);
@@ -121,4 +236,23 @@ void ClockWidget::updatePrefix(QString path)
 void ClockWidget::updateCharacter(QString name)
 {
     this->character = name;
+}
+
+void ClockWidget::updateFontColor(QString color)
+{
+    QPalette pe;
+    if (color == "white") {
+        pe.setColor(QPalette::WindowText,Qt::white);
+    }else {
+        pe.setColor(QPalette::WindowText,Qt::black);
+    }
+
+    this->dateLabel->setPalette(pe);
+    this->weekLabel->setPalette(pe);
+    this->timeLabel->setPalette(pe);
+}
+
+void ClockWidget::updateTimeGap(int gap)
+{
+    this->gap = gap;
 }

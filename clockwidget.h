@@ -33,11 +33,18 @@ private:
     QMediaPlaylist *playlist;
 
     QString prefix;
-    QString character = "nen";
+    QString character;
+    int gap;
+
+    void reportV1(); // dracu-riot
+    void reportV2(); // SanobaWitch
+    void reportV3();// Senrenbanka
 
 public slots:
     void updatePrefix(QString path);
     void updateCharacter(QString name);
+    void updateFontColor(QString color);
+    void updateTimeGap(int gap);
     void rendor();
 };
 

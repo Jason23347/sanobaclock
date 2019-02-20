@@ -14,7 +14,8 @@ BackgroundImageWidget::~BackgroundImageWidget()
 
 void BackgroundImageWidget::boot()
 {
-    filepath = prefix + "/background_" + number + ".png";
+    QString suffix = (game != "sanoba") ? ".jpg" : ".png";
+    filepath = prefix + "/background_" + game + "_" + number + suffix;
     ImageLoader::rendor();
 }
 
@@ -23,7 +24,8 @@ void BackgroundImageWidget::updatePrefix(QString path)
     this->prefix = path;
 }
 
-void BackgroundImageWidget::updateImage(QString number)
+void BackgroundImageWidget::updateImage(QString game, QString number)
 {
+    this->game = game;
     this->number = number;
 }

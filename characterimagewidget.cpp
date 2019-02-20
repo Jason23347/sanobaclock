@@ -19,6 +19,8 @@ CharacterImageWidget::~CharacterImageWidget()
 
 void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
 {
+    qDebug() << "touch event currently not available";
+    return;
     if (locked) {
         qDebug() << "image locked.";
         return;
@@ -28,7 +30,8 @@ void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
     int x = mouse->pos().x();
     int y = mouse->pos().y();
 
-    QString tmp;
+    QString tmp = this->type;
+    QString pmp = this->pose;
 
     qDebug() << "x: " << x << ", y: " << y;
 
@@ -38,10 +41,9 @@ void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
     {
         qDebug() << "touched shoulder.";
 
-        tmp = this->type;
-        updateImage(character, costume, "4");
+        updateImage(character, costume, pose, "4");
         boot();
-        updateImage(character, costume, tmp);
+        updateImage(character, costume, pmp, tmp);
 
         player->setMedia(QMediaContent(
                              QUrl::fromLocalFile(prefix + "/" + character + "_touch_02.mp3")));
@@ -54,9 +56,9 @@ void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
         qDebug() << "touched head.";
 
         tmp = this->type;
-        updateImage(character, costume, "2");
+        updateImage(character, costume, pose, "2");
         boot();
-        updateImage(character, costume, tmp);
+        updateImage(character, costume, pmp, tmp);
 
         player->setMedia(QMediaContent(
                              QUrl::fromLocalFile(prefix + "/" + character + "_touch_01.mp3")));
@@ -69,9 +71,9 @@ void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
             qDebug() << "touched panty!!! You hentai!!!";
 
             tmp = this->type;
-            updateImage(character, costume, "4");
+            updateImage(character, costume, pose, "4");
             boot();
-            updateImage(character, costume, tmp);
+            updateImage(character, costume,pmp, tmp);
 
             player->setMedia(QMediaContent(
                                  QUrl::fromLocalFile(prefix + "/" + character + "_touch_04.mp3")));
@@ -82,9 +84,9 @@ void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
             qDebug() << "touched chest or belly!!!";
 
             tmp = this->type;
-            updateImage(character, costume, "3");
+            updateImage(character, costume, pose, "3");
             boot();
-            updateImage(character, costume, tmp);
+            updateImage(character, costume, pmp, tmp);
 
             player->setMedia(QMediaContent(
                                  QUrl::fromLocalFile(prefix + "/" + character + "_touch_03.mp3")));
@@ -94,9 +96,9 @@ void CharacterImageWidget::mousePressEvent(QMouseEvent *mouse)
             qDebug() << "touched legs!!!";
 
             tmp = this->type;
-            updateImage(character, costume, "6");
+            updateImage(character, costume, pose, "6");
             boot();
-            updateImage(character, costume, tmp);
+            updateImage(character, costume, pmp, tmp);
 
             player->setMedia(QMediaContent(
                                  QUrl::fromLocalFile(prefix + "/" + character + "_touch_04.mp3")));
@@ -110,6 +112,7 @@ void CharacterImageWidget::boot()
 {
     filepath = prefix + "/" + character + "_" +
             "costume_" + costume + "_" +
+            "pose_" + pose + "_" +
             "type_" + type + ".png";
     ImageLoader::rendor();
 }
@@ -119,10 +122,11 @@ void CharacterImageWidget::updatePrefix(QString path)
     this->prefix = path;
 }
 
-void CharacterImageWidget::updateImage(QString name, QString costume, QString type)
+void CharacterImageWidget::updateImage(QString name, QString costume, QString pose, QString type)
 {
     this->character = name;
     this->costume = costume;
+    this->pose = pose;
     this->type = type;
 }
 

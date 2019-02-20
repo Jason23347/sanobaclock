@@ -30,7 +30,6 @@ SOURCES += \
         mainwindow.cpp \
     clockwidget.cpp \
     imageloader.cpp \
-    imagewidget.cpp \
     backgroundimagewidget.cpp \
     characterimagewidget.cpp \
     configwidget.cpp \
@@ -40,7 +39,6 @@ HEADERS += \
         mainwindow.h \
     clockwidget.h \
     imageloader.h \
-    imagewidget.h \
     backgroundimagewidget.h \
     characterimagewidget.h \
     configwidget.h \
