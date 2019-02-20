@@ -19,7 +19,9 @@ make
 
 Then the application will be open...maybe not.
 
-You need to download asset package by yourself, from this site: http://sothewitch.imel.co.jp/android/2k92ytne/android_prepare.zip, there's also a nude dlc package but I won't give it to you ~.
+### Assets
+
+The assets file is currently not available...
 
 Download the package and unpack to /your/root/,copy "config.ini" to the same path of the executable file, copy "mute.mp3" into the asset file.Then change the settings in config.ini.
 
@@ -31,5 +33,6 @@ The settings are all in the config file "config.ini".
 
 ### todos
 
-- add window to change config
-- add alarm
+- add support for riddle joker
+- add support for custumized illustrations
+- add config changing windows
